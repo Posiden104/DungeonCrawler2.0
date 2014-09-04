@@ -14,6 +14,7 @@ public class Spider extends Mob {
 		this.LV = LV;
 		lvCalc(LV, 100);
 		distance = 150;
+		weakness = "Ice";
 
 		move = random.nextInt(5);
 		name = "Spider";

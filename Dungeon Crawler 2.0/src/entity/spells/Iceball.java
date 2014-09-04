@@ -17,6 +17,7 @@ public class Iceball extends Spell {
 		range = 75;
 		time = 60;
 		ability = (Player.LV * 3 + 120);
+		element = "Ice";
 	}
 
 	public Iceball() {

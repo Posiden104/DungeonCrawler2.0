@@ -10,6 +10,7 @@ public class Spell extends Entity {
 
 	public Sprite sprite;
 	protected Mob target;
+	public String element;
 
 	
 	protected int x, y, targetX, targetY, range;
@@ -72,9 +73,17 @@ public class Spell extends Entity {
 		}
 	}
 
-	
+	protected int applyDmgMod(int damage, Mob target){
+		if(target.weakness == this.element){
+			damage *= Player.LV;
+			System.out.println(Player.LV + ", " + damage);
+		}
+		System.out.println(damage);
+		return damage;
+	}
 
 	protected void checkHit(int damage) {
+		damage = applyDmgMod(damage, target);
 		target.changeHealth(damage);
 		target.hit = true;
 		this.removed = true;

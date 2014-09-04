@@ -16,6 +16,7 @@ public class Skill_Fireball extends Skill_Spell {
 		mana = 50;
 		range = 50;
 		time = 30;
+		element = "Fire";
 	}
 
 	public void render(Screen screen){

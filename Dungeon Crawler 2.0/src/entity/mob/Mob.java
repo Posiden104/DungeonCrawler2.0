@@ -13,12 +13,13 @@ public class Mob extends Entity {
 	protected int anim;
 	protected int time, killTime = 240;
 	public int LV = 1;
+	protected int freezeTime, freezeCap;
 
 	protected boolean moving = false;
 	public boolean hit = false, frozen = false;
 	public boolean dead = false;
 
-	protected int freezeTime, freezeCap;
+	public String weakness;
 
 	public void lvCalc(int LV, int health) {
 		this.health = healthMax = (int) (Math.pow(LV, 1.75) + health);
