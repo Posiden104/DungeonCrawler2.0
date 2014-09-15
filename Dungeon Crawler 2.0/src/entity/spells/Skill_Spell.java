@@ -11,6 +11,7 @@ public class Skill_Spell extends Spell {
 
 	public Skill_Spell(int x, int y, int targetX, int targetY) {
 		super(x, y, targetX, targetY);
+		System.out.println("Hello");
 	}
  
 	public Skill_Spell() {
