@@ -16,7 +16,6 @@ public class Fireball extends Spell {
 		mana = 50;
 		range = 50;
 		time = 30;
-		element = "Fire";
 
 	}
 

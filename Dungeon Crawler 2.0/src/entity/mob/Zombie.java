@@ -14,7 +14,6 @@ public class Zombie extends Mob {
 		this.LV = LV;
 		lvCalc(LV, 150);
 		distance = 150;
-		weakness = "Fire";
 
 		move = random.nextInt(5);
 		name = "Zombie";

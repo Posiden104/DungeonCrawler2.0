@@ -11,9 +11,8 @@ public class Skill_Spell extends Spell {
 
 	public Skill_Spell(int x, int y, int targetX, int targetY) {
 		super(x, y, targetX, targetY);
-		System.out.println("Hello");
 	}
- 
+
 	public Skill_Spell() {
 	}
 
@@ -42,6 +41,7 @@ public class Skill_Spell extends Spell {
 		//drawing the circle
 		int midX = this.x + (sprite.WIDTH / 2);
 		int midY = this.y + (sprite.HEIGHT / 2);
+		//System.out.println("circle range: " + range);
 		for (int y = (midY - range); y <= (midY + range); y++) {
 			for (int x = (midX - range); x <= (midX + range); x++) {
 				if (distance(x, y, midX, midY) == range) {
@@ -57,10 +57,9 @@ public class Skill_Spell extends Spell {
 		for (int i = 0; i < Spawner.mobs.size(); i++) {
 			selected = Spawner.mobs.get(i);
 			if (cornerCheck(x, y, selected, range)) {
-				damage = applyDmgMod(damage, selected);
 				selected.changeHealth(damage);
 				selected.hit = true;
-//				System.out.println(selected);
+				System.out.println(selected);
 			}
 		}
 		removed = true;
