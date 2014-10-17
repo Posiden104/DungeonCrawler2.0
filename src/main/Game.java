@@ -25,13 +25,13 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	public static int window_width = 400;
-	public static int window_heigth = window_width / 16 * 9;
+	public static int window_height = window_width / 16 * 9;
 
 	public static int window_scale = 3;
 	public static int screen_scale = 2;
 
 	public static int width = window_width * window_scale;
-	public static int height = window_heigth * window_scale;
+	public static int height = window_height * window_scale;
 
 	public String title = "Dungeon Crawler 2.0 ";
 
@@ -40,7 +40,7 @@ public class Game extends Canvas implements Runnable {
 	private Keyboard key;
 	private Mouse mouse;
 	public static Level level;
-	private Player player;
+	public static Player player;
 
 	private boolean running = false;
 

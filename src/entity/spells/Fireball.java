@@ -25,6 +25,8 @@ public class Fireball extends Spell {
 	}
 
 	protected void checkHit() {
-		checkHit(damage);
+		if (!hitWall) {
+			checkHit(damage);
+		}
 	}
 }

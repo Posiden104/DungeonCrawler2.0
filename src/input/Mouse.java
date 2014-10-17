@@ -80,6 +80,8 @@ public class Mouse implements MouseMotionListener, MouseListener, MouseWheelList
 			if (Player.aiming) {
 				Player.skillX = mse.x;
 				Player.skillY = mse.y;
+				Player.tanX = pmp.x;
+				Player.tanY = pmp.y;
 				Player.aiming = false;
 				Player.stopAiming = true;
 				Player.startCast();

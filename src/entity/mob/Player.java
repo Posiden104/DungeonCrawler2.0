@@ -27,6 +27,7 @@ public class Player extends Mob {
 	private int anim = 0;
 	private static int cast, castTime = Fireball.time;
 	public static int skillX = 0, skillY = 0;
+	public static int tanX = 0, tanY = 0;
 	public static int health, healthMax, mana, manaMax;
 	public static int circleSize;
 	public static int LV = 1;
@@ -153,7 +154,7 @@ public class Player extends Mob {
 			mana -= Iceball.mana;
 			break;
 		case "Skill Fireball":
-			spells.add(new Skill_Fireball(x, y, skillX, skillY));
+			spells.add(new Skill_Fireball(x, y, skillX, skillY, tanX, tanY));
 			break;
 		default:
 			break;
@@ -164,6 +165,16 @@ public class Player extends Mob {
 	}
 
 	public void fastUpdate() {
+//		for (int i = 0; i < spells.size(); i++) {
+//			if (spells.get(i).removed) {
+//				spells.remove(i);
+//			} else {
+//				spells.get(i).update();
+//			}
+//		}
+	}
+	
+	public void spellUpdate(){
 		for (int i = 0; i < spells.size(); i++) {
 			if (spells.get(i).removed) {
 				spells.remove(i);
@@ -188,6 +199,7 @@ public class Player extends Mob {
 		}
 
 		selectedWeapon.update();
+		spellUpdate();
 
 		//casting stuff:
 		if (input.space) {

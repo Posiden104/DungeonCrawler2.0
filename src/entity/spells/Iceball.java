@@ -6,7 +6,8 @@ import graphics.Sprite;
 
 public class Iceball extends Spell {
 
-	public static int damage = -(Player.LV * 4 + 35), mana = 60, range = 75, time = 60, ability = (Player.LV * 3 + 120);
+	public static int damage = -(Player.LV * 4 + 35), mana = 60, range = 75, time = 60,
+			ability = (Player.LV * 3 + 120);
 
 	public Iceball(int x, int y, Mob target) {
 		super(x, y, target);
@@ -25,8 +26,10 @@ public class Iceball extends Spell {
 	}
 
 	protected void checkHit() {
-		target.freeze(ability);
-		checkHit(damage);
+		if (!hitWall) {
+			target.freeze(ability);
+			checkHit(damage);
+		}
 	}
 
 }
