@@ -54,8 +54,8 @@ public class Mob extends Entity {
 		if (!frozen) {
 			anim++;
 			if (anim % 100 == 0) {
-//				move = random.nextInt(5);
-	//			anim = random.nextInt(50);
+				move = random.nextInt(5);   // Comment to freeze movement
+				anim = random.nextInt(50); // Comment to freeze movement
 			}
 		} else {
 			move = 4;

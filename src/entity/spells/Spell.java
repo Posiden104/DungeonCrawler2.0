@@ -1,6 +1,5 @@
 package entity.spells;
 
-import main.Game;
 import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.Player;
@@ -50,8 +49,12 @@ public class Spell extends Entity {
 	}
 
 	protected double angleCalc() {
-		double dx = targetX - Game.player.x;
-		double dy = targetY - Game.player.y;
+		if (target != null) {
+			targetX = target.x;
+			targetY = target.y;
+		}
+		double dx = targetX - this.x;
+		double dy = targetY - this.y;
 		return Math.atan2(dy, dx);
 	}
 
@@ -70,8 +73,8 @@ public class Spell extends Entity {
 
 		xa = Math.cos(angle);
 		ya = Math.sin(angle);
-		
-		if (collision((int)xa, (int)ya)) {
+
+		if (collision((int) xa, (int) ya)) {
 			hitWall = true;
 			checkHit();
 			removed = true;
@@ -87,9 +90,9 @@ public class Spell extends Entity {
 	protected void checkHit() {
 	}
 
-	public void move(double xa, double ya){
+	public void move(double xa, double ya) {
 		if (xa != 0 || ya != 0) {
-			if (!collision((int)xa, (int)ya)) {
+			if (!collision((int) xa, (int) ya)) {
 				x += speed * xa;
 				y += speed * ya;
 			} else {
@@ -101,8 +104,7 @@ public class Spell extends Entity {
 	}
 
 	public void update() {
-		targetX = target.x;
-		targetY = target.y;
+		angle = angleCalc();
 
 		checkMove();
 
@@ -117,6 +119,7 @@ public class Spell extends Entity {
 			checkHit();
 		}
 	}
+
 	public void render(Screen screen) {
 		if (!removed)
 			screen.renderItem((int) x, (int) y, sprite);
