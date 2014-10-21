@@ -25,7 +25,7 @@ public class Iceball extends Spell {
 	}
 
 	protected void checkHit() {
-		if (!hitWall) {
+		if (!hitWall && target != null) {
 			target.freeze(ability);
 			checkHit(damage);
 		}

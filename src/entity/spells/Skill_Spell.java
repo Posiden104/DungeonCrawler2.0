@@ -77,20 +77,12 @@ public class Skill_Spell extends Spell {
 	protected void checkHit() {
 	}
 
-	protected int dist(int x, int y, int x1, int y1) {
-		int b;
-		int xx = (x - x1) * (x - x1);
-		int yy = (y - y1) * (y - y1);
-		b = (int) Math.sqrt(xx + yy);
-		return b;
-	}
-
 	protected boolean cornerCheck(int x, int y, Mob selected, int range) {
 		int TL, TR, BL, BR;
-		TL = dist(x, y, selected.xL, selected.yT);
-		TR = dist(x, y, selected.xR, selected.yT);
-		BL = dist(x, y, selected.xL, selected.yB);
-		BR = dist(x, y, selected.xR, selected.yB);
+		TL = distance(x, y, selected.xL, selected.yT);
+		TR = distance(x, y, selected.xR, selected.yT);
+		BL = distance(x, y, selected.xL, selected.yB);
+		BR = distance(x, y, selected.xR, selected.yB);
 		if (TL < range || TR < range || BL < range || BR < range)
 			return true;
 		return false;

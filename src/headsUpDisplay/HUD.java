@@ -1,6 +1,7 @@
 package headsUpDisplay;
 
 import input.Mouse;
+import entity.Entity;
 import entity.mob.Player;
 import entity.weapons.Weapon;
 import graphics.LargeSprite;
@@ -58,7 +59,7 @@ public class HUD {
 			screen.renderItem(Mouse.mse.x - 16, Mouse.mse.y - 16, Sprite.crosshairs);
 			for (int y = Mouse.mse.y - Player.circleSize; y <= Mouse.mse.y + Player.circleSize; y++) {
 				for (int x = Mouse.mse.x - Player.circleSize; x <= Mouse.mse.x + Player.circleSize; x++) {
-					if (player.distance(x, y, Mouse.mse.x, Mouse.mse.y) == Player.circleSize) {
+					if (Entity.distance(x, y, Mouse.mse.x, Mouse.mse.y) == Player.circleSize) {
 						screen.renderPixel(x, y, 0xffFF0000);
 					}
 				}

@@ -61,7 +61,7 @@ public abstract class Entity {
 		return b;
 	}
 
-	public int distance(int x, int y, int x0, int y0) {
+	public static int distance(int x, int y, int x0, int y0) {
 		int b;
 		int xx = (x - x0) * (x - x0);
 		int yy = (y - y0) * (y - y0);

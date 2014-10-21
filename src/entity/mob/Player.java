@@ -16,6 +16,8 @@ import input.Keyboard;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import level.Spawner;
+import main.Game;
 import values.SpellVals;
 
 public class Player extends Mob {
@@ -32,15 +34,16 @@ public class Player extends Mob {
 	public static int tanX = 0, tanY = 0;
 	public static int health, healthMax, mana, manaMax;
 	public static int circleSize;
+	public static int range = SpellVals.fireball_range;
 	public static int LV = 1;
 
 	private static boolean walking;
 	public static boolean isCasting;
 	public static boolean skill, aiming, stopAiming, show;
-
-	public static String selectedSpell = "Fireball";
 	public static boolean spell, weapon;
 	public boolean test = false;
+
+	public static String selectedSpell = "Fireball";
 
 	public ArrayList<Spell> spells = new ArrayList<Spell>();
 	public static ArrayList<Spell> knownSpells = new ArrayList<Spell>();
@@ -89,17 +92,20 @@ public class Player extends Mob {
 		switch (name) {
 		case "Fireball":
 			castTime = SpellVals.fireball_time;
+			range = SpellVals.fireball_range;
 			skill = false;
 			aiming = false;
 			break;
 		case "Iceball":
 			castTime = SpellVals.iceball_time;
+			range = SpellVals.iceball_range;
 			skill = false;
 			aiming = false;
 			break;
 		case "Skill Fireball":
 			castTime = SpellVals.skill_fireball_time;
 			circleSize = SpellVals.skill_fireball_range;
+			range = SpellVals.skill_fireball_range;
 			target = null;
 			stopAiming = false;
 			aiming = true;
@@ -110,6 +116,10 @@ public class Player extends Mob {
 	}
 
 	public static void startCast() {
+		if (!skill && target == null) {
+			target = getTarget(range);
+		}
+
 		if (skill && !aiming) {
 			aiming = true;
 		}
@@ -142,7 +152,6 @@ public class Player extends Mob {
 
 	public void cast() {
 		isCasting = false;
-		// hasCasted = true;
 		cast = 0;
 
 		switch (selectedSpell) {
@@ -164,6 +173,39 @@ public class Player extends Mob {
 
 		spells.get(spells.size() - 1).init(level);
 		show = false;
+	}
+
+	public static Mob getTarget(int range) {
+		Mob selected;
+		Mob tgt = null;
+		int xp = Game.player.x;
+		int yp = Game.player.y;
+		int shortest = Integer.MAX_VALUE;
+		for (int i = 0; i < Spawner.mobs.size(); i++) {
+			selected = Spawner.mobs.get(i);
+			if(selected.dead)
+				continue;
+			int dist = closestCorner(xp, yp, selected, range);
+			if (dist != -1 && dist <= shortest) {
+				shortest = dist;
+				tgt = selected;
+			}
+		}
+		return tgt;
+	}
+
+	public static int closestCorner(int x, int y, Mob selected, int range) {
+		int TL, TR, BL, BR;
+		TL = distance(x, y, selected.xL, selected.yT);
+		TR = distance(x, y, selected.xR, selected.yT);
+		BL = distance(x, y, selected.xL, selected.yB);
+		BR = distance(x, y, selected.xR, selected.yB);
+		if (TL < range || TR < range || BL < range || BR < range) {
+			int right = Math.min(TR, BR);
+			int left = Math.min(TL, BL);
+			return Math.min(right, left);
+		}
+		return -1;
 	}
 
 	public void spellUpdate() {
@@ -209,7 +251,10 @@ public class Player extends Mob {
 			}
 		}
 
-		if (isCasting && (target != null || skill)) {
+		if (isCasting) {
+			if (target == null && !skill) {
+				target = getTarget(range);
+			}
 			casting();
 		}
 		// done

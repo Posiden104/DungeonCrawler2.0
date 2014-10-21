@@ -85,6 +85,8 @@ public class Spell extends Entity {
 	}
 
 	protected void checkHit(int damage) {
+		if(target == null)
+			return;
 		target.changeHealth(damage, element);
 		target.hit = true;
 		removed = true;
