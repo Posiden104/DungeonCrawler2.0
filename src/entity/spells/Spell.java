@@ -11,13 +11,16 @@ public class Spell extends Entity {
 	public Sprite sprite;
 	protected Mob target;
 
-	protected int targetX, targetY, range;
+	protected int targetX, targetY;
 	protected int tanX, tanY;
-	protected double x, y;
-	protected double angle;
 	protected int move;
-	protected double xa, ya;
 	protected int speed;
+	public int damage, mana, range;
+	public int time, ability, element;
+
+	protected double xa, ya;
+	protected double angle;
+	protected double x, y;
 
 	public boolean learned;
 	protected boolean hitWall = false;
@@ -82,7 +85,7 @@ public class Spell extends Entity {
 	}
 
 	protected void checkHit(int damage) {
-		target.changeHealth(damage);
+		target.changeHealth(damage, element);
 		target.hit = true;
 		removed = true;
 	}

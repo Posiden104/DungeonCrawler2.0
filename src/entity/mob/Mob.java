@@ -8,11 +8,13 @@ public class Mob extends Entity {
 	protected Sprite sprite;
 
 	protected int health, healthMax, healthTime;
-	public int distance;
-	public int ID;
 	protected int anim;
 	protected int time, killTime = 240;
 	public int LV = 1;
+	public int weakness, weakDmg;
+	public int resist, resistDmg;
+	public int ID;
+	public int distance;
 
 	protected boolean moving = false;
 	public boolean hit = false, frozen = false;
@@ -22,9 +24,17 @@ public class Mob extends Entity {
 
 	public void lvCalc(int LV, int health) {
 		this.health = healthMax = (int) (Math.pow(LV, 1.75) + health);
+		weakDmg -= LV * 5 - weakDmg <= 10 ? 10 : LV * 5;
+		resistDmg += LV * 5 + resistDmg >= 150 ? 150 : LV * 5;
 	}
 
-	public void changeHealth(int change) {
+	public void changeHealth(int change, int element) {
+		if (weakness == element) {
+			change = change - weakDmg;
+		}
+		if (resist == element) {
+			change = change + resistDmg;
+		}
 		health += change;
 	}
 
@@ -46,7 +56,8 @@ public class Mob extends Entity {
 	public void update() {
 		if (health <= 0) {
 			dead = true;
-			if (Player.target == this) Player.target = null;
+			if (Player.target == this)
+				Player.target = null;
 			deathTimer();
 			return;
 		}
@@ -54,7 +65,7 @@ public class Mob extends Entity {
 		if (!frozen) {
 			anim++;
 			if (anim % 100 == 0) {
-				move = random.nextInt(5);   // Comment to freeze movement
+				move = random.nextInt(5); // Comment to freeze movement
 				anim = random.nextInt(50); // Comment to freeze movement
 			}
 		} else {

@@ -33,7 +33,9 @@ public class Game extends Canvas implements Runnable {
 	public static int width = window_width * window_scale;
 	public static int height = window_height * window_scale;
 
-	public String title = "Dungeon Crawler 2.0 ";
+	
+	public String version = "2.2.1";
+	public String title = "Dungeon Crawler " + version;
 
 	private Thread thread;
 	private JFrame frame;
@@ -83,10 +85,6 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	public void fastUpdate() {
-		player.fastUpdate();
-	}
-
 	public void update() {
 		key.update();
 		player.update();
@@ -128,8 +126,7 @@ public class Game extends Canvas implements Runnable {
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
 		int frames = 0;
-		int updates = 0;
-		int fups = 0;
+//		int updates = 0;
 
 		requestFocus();
 
@@ -140,11 +137,7 @@ public class Game extends Canvas implements Runnable {
 
 			while (delta >= 1) {
 				update();
-				updates++;
-				fastUpdate();
-				fups++;
-				fastUpdate();
-				fups++;
+//				updates++;
 				delta--;
 			}
 
@@ -155,10 +148,9 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps, " + fups + " fups");
-				updates = 0;
+				frame.setTitle(title + "  |  " + frames + " fps, ");
+//				updates = 0;
 				frames = 0;
-				fups = 0;
 			}
 		}
 		stop();

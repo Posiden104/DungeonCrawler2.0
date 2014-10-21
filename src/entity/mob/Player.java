@@ -16,6 +16,8 @@ import input.Keyboard;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import values.SpellVals;
+
 public class Player extends Mob {
 
 	private Keyboard input;
@@ -25,7 +27,7 @@ public class Player extends Mob {
 	private static HUD hud;
 
 	private int anim = 0;
-	private static int cast, castTime = Fireball.time;
+	private static int cast, castTime = SpellVals.fireball_time;
 	public static int skillX = 0, skillY = 0;
 	public static int tanX = 0, tanY = 0;
 	public static int health, healthMax, mana, manaMax;
@@ -86,18 +88,18 @@ public class Player extends Mob {
 	public static void dimSpell(String name) {
 		switch (name) {
 		case "Fireball":
-			castTime = Fireball.time;
+			castTime = SpellVals.fireball_time;
 			skill = false;
 			aiming = false;
 			break;
 		case "Iceball":
-			castTime = Iceball.time;
+			castTime = SpellVals.iceball_time;
 			skill = false;
 			aiming = false;
 			break;
 		case "Skill Fireball":
-			castTime = Skill_Fireball.time;
-			circleSize = Skill_Fireball.range;
+			castTime = SpellVals.skill_fireball_time;
+			circleSize = SpellVals.skill_fireball_range;
 			target = null;
 			stopAiming = false;
 			aiming = true;
@@ -112,7 +114,8 @@ public class Player extends Mob {
 			aiming = true;
 		}
 
-		if (stopAiming) aiming = false;
+		if (stopAiming)
+			aiming = false;
 
 		if (!aiming) {
 			if (!skill) {
@@ -131,30 +134,29 @@ public class Player extends Mob {
 	public void casting() {
 		isCasting = true;
 		show = true;
-//		if (!hasCasted) {
-			cast++;
-			if (cast == castTime) {
-				cast();
-			}
-//		}
+		cast++;
+		if (cast == castTime) {
+			cast();
+		}
 	}
 
 	public void cast() {
 		isCasting = false;
-		//hasCasted = true;
+		// hasCasted = true;
 		cast = 0;
 
 		switch (selectedSpell) {
 		case "Fireball":
 			spells.add(new Fireball(x, y, target));
-			mana -= Fireball.mana;
+			mana -= SpellVals.fireball_mana;
 			break;
 		case "Iceball":
 			spells.add(new Iceball(x, y, target));
-			mana -= Iceball.mana;
+			mana -= SpellVals.iceball_mana;
 			break;
 		case "Skill Fireball":
 			spells.add(new Skill_Fireball(x, y, skillX, skillY, tanX, tanY));
+			mana -= SpellVals.skill_fireball_mana;
 			break;
 		default:
 			break;
@@ -164,17 +166,7 @@ public class Player extends Mob {
 		show = false;
 	}
 
-	public void fastUpdate() {
-//		for (int i = 0; i < spells.size(); i++) {
-//			if (spells.get(i).removed) {
-//				spells.remove(i);
-//			} else {
-//				spells.get(i).update();
-//			}
-//		}
-	}
-	
-	public void spellUpdate(){
+	public void spellUpdate() {
 		for (int i = 0; i < spells.size(); i++) {
 			if (spells.get(i).removed) {
 				spells.remove(i);
@@ -188,11 +180,16 @@ public class Player extends Mob {
 		int xa = 0, ya = 0;
 		if (anim < 7500)
 			anim++;
-		else anim = 0;
-		if (input.up) ya--;
-		if (input.down) ya++;
-		if (input.left) xa--;
-		if (input.right) xa++;
+		else
+			anim = 0;
+		if (input.up)
+			ya--;
+		if (input.down)
+			ya++;
+		if (input.left)
+			xa--;
+		if (input.right)
+			xa++;
 		if (input.keys[KeyEvent.VK_F9]) {
 			Player.LV++;
 			lvCalc();
@@ -201,10 +198,10 @@ public class Player extends Mob {
 		selectedWeapon.update();
 		spellUpdate();
 
-		//casting stuff:
+		// casting stuff:
 		if (input.space) {
 			if (selectedWeapon.wand) {
-				if (!isCasting){ // || !hasCasted) {
+				if (!isCasting) {
 					startCast();
 				}
 			} else {
@@ -215,7 +212,7 @@ public class Player extends Mob {
 		if (isCasting && (target != null || skill)) {
 			casting();
 		}
-		//done
+		// done
 
 		distance = dist(x, y);
 
@@ -281,7 +278,7 @@ public class Player extends Mob {
 		}
 
 		hud.render(screen);
-	
+
 		if (selectedWeapon.getRange() != 0) {
 			if (getDir() == 0) {
 				for (int y = this.y - selectedWeapon.getRange() + 1; y < this.y; y++) {

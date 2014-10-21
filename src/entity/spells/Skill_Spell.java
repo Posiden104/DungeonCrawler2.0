@@ -66,7 +66,7 @@ public class Skill_Spell extends Spell {
 		for (int i = 0; i < Spawner.mobs.size(); i++) {
 			selected = Spawner.mobs.get(i);
 			if (cornerCheck((int) x, (int) y, selected, range)) {
-				selected.changeHealth(damage);
+				selected.changeHealth(damage, element);
 				selected.hit = true;
 				// System.out.println(selected);
 			}

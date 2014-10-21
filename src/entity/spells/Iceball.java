@@ -1,23 +1,22 @@
 package entity.spells;
 
+import values.Elements;
+import values.SpellVals;
 import entity.mob.Mob;
-import entity.mob.Player;
 import graphics.Sprite;
 
 public class Iceball extends Spell {
-
-	public static int damage = -(Player.LV * 4 + 35), mana = 60, range = 75, time = 60,
-			ability = (Player.LV * 3 + 120);
 
 	public Iceball(int x, int y, Mob target) {
 		super(x, y, target);
 		sprite = Sprite.iceball;
 		name = "Iceball";
-		damage = -(Player.LV * 4 + 35);
-		mana = 60;
-		range = 75;
-		time = 60;
-		ability = (Player.LV * 3 + 120);
+		damage = SpellVals.iceball_damage;
+		mana = SpellVals.iceball_mana;
+		range = SpellVals.iceball_range;
+		time = SpellVals.iceball_time;
+		ability = SpellVals.iceball_freeze;
+		element = Elements.ice;
 	}
 
 	public Iceball() {
