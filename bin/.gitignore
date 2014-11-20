@@ -1,5 +1,8 @@
 /entity/
-/values/
-/main/
+/graphics/
 /headsUpDisplay/
 /input/
+/level/
+/main/
+/tile/
+/values/
